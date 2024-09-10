@@ -8,10 +8,18 @@
 
 Where to find class data?:
 
+```         
 cd /gpfs1/cl/pbio3990
+```
 
 How to read zipped fq.gz files:
 
+```         
 zcat \<file.gz\> \| head
+```
 
-also: zcat \<file.gz\> \| head -n <number>
+also:
+
+```         
+zcat \<file.gz\> \| head -n <number>
+```
