@@ -1,5 +1,5 @@
-#Notes by Miles Garvin 
+# Notes by Miles Garvin
+## Welcome!!
 
-##Welcome!!
-
-###Week 3: Sep 10th / 12th
+### Week 3: Sep 10th / 12th
+This is a test! 
