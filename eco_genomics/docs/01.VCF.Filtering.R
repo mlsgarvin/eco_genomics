@@ -21,4 +21,10 @@ chr1 <- create.chromR(name="Chromosome 1", vcf=vcf, seq=dna, ann=gff)
 ###Makes a plot!!1
 plot(chr1)
 
-chromoqc(chr1, xlim=c(1e1, 1.1e8))
+#open for writing to a pdf
+pdf(file="~/Rprojects/eco_genomics/eco_genomics/figures/Chromoplot.pdf")
+
+chromoqc(chr1, xlim=c(1e1, 1.1e8)) #then run command
+
+#closes pdf writer
+dev.off()
