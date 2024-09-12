@@ -20,3 +20,5 @@ gff <- read.table("/gpfs1/cl/pbio3990/PopulationGenomics/reference/GCA_030169165
 chr1 <- create.chromR(name="Chromosome 1", vcf=vcf, seq=dna, ann=gff)
 ###Makes a plot!!1
 plot(chr1)
+
+chromoqc(chr1, xlim=c(1e1, 1.1e8))
