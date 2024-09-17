@@ -86,7 +86,7 @@ meta2$pop = as.factor(meta2$pop)
 vcf.filt.indMiss <- missing_by_sample(vcf.filt,
                                       popmap=meta2,
                                       cutoff=0.75)
-#filter to be biallelic
+#filter to be bialellic
 vcf.filt.indMiss <- filter_biallelic(vcf.filt.indMiss)
 
 #get rid of NAs
