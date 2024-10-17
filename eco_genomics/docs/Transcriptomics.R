@@ -178,9 +178,9 @@ p.MA <- plotMA(res_D22vsD18, ylim=c(-4,4))
 #fourtnite!!!!!!!!!!!!!!!!!!!!
 
 #gadagada ee gadagada oh
-   ____
- _(
-(__)
+ #  ____
+ #_(
+#(__)
 
 #volcano plot
 res_df <- as.data.frame(res_D22vsD18)
@@ -204,3 +204,114 @@ topgenes <- head(rownames(res_D22vsD18), 20)
 mat <- assay(vsd)[topgenes,]
 df <- as.data.frame(colData(dds)[,c("DevTemp", "FinalTemp")])
 pheatmap(mat, annotation_col=df, show_rownames=F, cluster_cols=T, cluster_rows=T)
+
+
+
+
+###########################
+####### DAY 3 #############
+###########################
+
+library(eulerr)
+
+#realmsg <- c("I HATE THE NUMBER " str(i))
+
+#for (i in seq(1,10,0.1))
+ # print(c(realmsg, i, sep = "")
+
+
+
+dds$group <- factor(paste0(dds$DevTemp, dds$FinalTemp))
+design(dds) <- ~ group
+dds <- DESeq(dds)
+dim(dds)
+resultsNames(dds)
+#"Intercept"               "group_D18A33_vs_D18A28"  "group_D18BASE_vs_D18A28"
+#"group_D22A28_vs_D18A28"  "group_D22A33_vs_D18A28"  "group_D22BASE_vs_D18A28"
+
+## compare differential gene expression between 18 baseline and 22 baseline
+res_D18_BASE_D22_BASE <- results(dds, contrast=c("group", "D18BASE", "D22BASE"), alpha=0.05)
+res_D18_BASE_D22_BASE <- res_D18_BASE_D22_BASE[!is.na(res_D18_BASE_D22_BASE$padj),]
+res_D18_BASE_D22_BASE <- res_D18_BASE_D22_BASE[order(res_D18_BASE_D22_BASE$padj),]
+head(res_D18_BASE_D22_BASE)
+summary(res_D18_BASE_D22_BASE)
+
+#make a list o differentially expressed genes
+degs_D18_BASE_D22_BASE <- row.names(res_D18_BASE_D22_BASE[res_D18_BASE_D22_BASE$padj < 0.05,])
+
+plotMA(res_D18_BASE_D22_BASE, ylim=c(-4,4))
+
+## Compare D18 at A28 vs D22 at A28
+res_D18_A28_D22_A28 <- results(dds, contrast=c("group", "D18A28", "D22A28"), alpha=0.05)
+res_D18_A28_D22_A28 <- res_D18_A28_D22_A28[!is.na(res_D18_A28_D22_A28$padj),]
+res_D18_A28_D22_A28 <- res_D18_A28_D22_A28[order(res_D18_A28_D22_A28$padj),]
+head(res_D18_A28_D22_A28)
+summary(res_D18_A28_D22_A28)
+
+degs_D18_A28_D22_A28 <- row.names(res_D18_A28_D22_A28[res_D18_A28_D22_A28$padj < 0.05,])
+plotMA(res_D18_A28_D22_A28, ylim=c(-4,4))
+
+
+
+
+## Compare D18 at BASE vs D18 at A28
+res_D18_BASE_D18_A28 <- results(dds, contrast=c("group", "D18BASE", "D18A28"), alpha=0.05)
+res_D18_BASE_D18_A28 <- res_D18_BASE_D18_A28[!is.na(res_D18_BASE_D18_A28$padj),]
+res_D18_BASE_D18_A28 <- res_D18_BASE_D18_A28[order(res_D18_BASE_D18_A28$padj),]
+head(res_D18_BASE_D18_A28)
+summary(res_D18_BASE_D18_A28)
+
+degs_D18_BASE_D18_A28 <- row.names(res_D18_BASE_D18_A28[res_D18_BASE_D18_A28$padj < 0.05,])
+plotMA(res_D18_BASE_D18_A28, ylim=c(-4,4))
+
+
+## Compare D18 at BASE vs D22 at A28
+res_D18_BASE_D22_A28 <- results(dds, contrast=c("group", "D18BASE", "D22A28"), alpha=0.05)
+res_D18_BASE_D22_A28 <- res_D18_BASE_D22_A28[!is.na(res_D18_BASE_D22_A28$padj),]
+res_D18_BASE_D22_A28 <- res_D18_BASE_D22_A28[order(res_D18_BASE_D22_A28$padj),]
+head(res_D18_BASE_D22_A28)
+summary(res_D18_BASE_D22_A28)
+
+degs_D18_BASE_D22_A28 <- row.names(res_D18_BASE_D22_A28[res_D18_BASE_D22_A28$padj < 0.05,])
+plotMA(res_D18_BASE_D22_A28, ylim=c(-4,4))
+
+
+
+
+## Compare D18 at BASE vs D22 at A33
+res_D18_BASE_D22_A33 <- results(dds, contrast=c("group", "D18BASE", "D22A33"), alpha=0.05)
+res_D18_BASE_D22_A33 <- res_D18_BASE_D22_A33[!is.na(res_D18_BASE_D22_A33$padj),]
+res_D18_BASE_D22_A33 <- res_D18_BASE_D22_A33[order(res_D18_BASE_D22_A33$padj),]
+head(res_D18_BASE_D22_A33)
+summary(res_D18_BASE_D22_A33)
+
+degs_D18_BASE_D22_A33 <- row.names(res_D18_BASE_D22_A33[res_D18_BASE_D22_A33$padj < 0.05,])
+plotMA(res_D18_BASE_D22_A33, ylim=c(-4,4))
+
+
+## Compare D18 at A33 vs D22 at A33
+res_D18_A33_D22_A33 <- results(dds, contrast=c("group", "D18A33", "D22A33"), alpha=0.05)
+res_D18_A33_D22_A33 <- res_D18_A33_D22_A33[!is.na(res_D18_A33_D22_A33$padj),]
+res_D18_A33_D22_A33 <- res_D18_A33_D22_A33[order(res_D18_A33_D22_A33$padj),]
+head(res_D18_A33_D22_A33)
+summary(res_D18_A33_D22_A33)
+
+degs_D18_A33_D22_A33 <- row.names(res_D18_A33_D22_A33[res_D18_A33_D22_A33$padj < 0.05,])
+plotMA(res_D18_A33_D22_A33, ylim=c(-4,4))
+
+
+length(degs_D18_BASE_D22_BASE) # 1935 genes(!!)
+length(degs_D18_A28_D22_A28) # 296 genes
+length(degs_D18_A33_D22_A33) # 78 genes
+
+#### euler??? I hardly know her
+## (not yet!!) euler(c(degs_D18_BASE_D22_BASE, degs_D18_A28_D22_A28, degs_D18_A33_D22_A33))
+
+
+#look at intersections
+length(intersect(degs_D18_BASE_D22_BASE, degs_D18_A28_D22_A28)) #107!
+length(intersect(degs_D18_BASE_D22_BASE, degs_D18_A33_D22_A33)) #44
+length(intersect(degs_D18_A33_D22_A33, degs_D18_A28_D22_A28)) #29
+length(intersect(degs_D18_BASE_D22_BASE, intersect(degs_D18_A33_D22_A33, degs_D18_A28_D22_A28))) #23!!!
+
+
